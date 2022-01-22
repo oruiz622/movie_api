@@ -104,8 +104,8 @@
             <ul class="pl-5 mt-8 leading-loose list-disc">
 
                 @foreach ($credits as $credit)
-                    <li>{{ $credit['release_year'] }} &middot; <strong>{{ $credit['title'] }}</strong> as
-                        {{ $credit['character'] }}
+                    <li>{{ $credit['release_year'] }} &middot; <strong>{{ $credit['title'] }}</strong>
+                        {{-- as {{ $credit['character'] }} --}}
                     </li>
                 @endforeach
 

@@ -37,36 +37,34 @@ class TvViewModel extends ViewModel
 
     private function formatTV($tvShow)
     {
-        return collect($tvShow)
-            ->map(function ($tvShow) {
-                $genresFormatted = collect($tvShow['genre_ids'])
-                    ->mapWithKeys(function ($value) {
-                        return [$value => $this->genres()->get($value)];
-                    })
-                    ->implode(', ');
+        return collect($tvShow)->map(function ($tvShow) {
+            $genresFormatted = collect($tvShow['genre_ids'])
+                ->mapWithKeys(function ($value) {
+                    return [$value => $this->genres()->get($value)];
+                })
+                ->implode(', ');
 
-                return collect($tvShow)
-                    ->merge([
-                        'poster_path' =>
-                            'https://image.tmdb.org/t/p/w500/' .
-                            $tvShow['poster_path'],
-                        'vote_average' => $tvShow['vote_average'] * 10 . '%',
-                        'first_air_date' => Carbon::parse(
-                            $tvShow['first_air_date']
-                        )->format('M d, Y'),
-                        'genres' => $genresFormatted,
-                    ])
-                    ->only([
-                        'poster_path',
-                        'id',
-                        'genre_ids',
-                        'name',
-                        'vote_average',
-                        'overview',
-                        'first_air_date',
-                        'genres',
-                    ]);
-            })
-            ->dump();
+            return collect($tvShow)
+                ->merge([
+                    'poster_path' =>
+                        'https://image.tmdb.org/t/p/w500/' .
+                        $tvShow['poster_path'],
+                    'vote_average' => $tvShow['vote_average'] * 10 . '%',
+                    'first_air_date' => Carbon::parse(
+                        $tvShow['first_air_date']
+                    )->format('M d, Y'),
+                    'genres' => $genresFormatted,
+                ])
+                ->only([
+                    'poster_path',
+                    'id',
+                    'genre_ids',
+                    'name',
+                    'vote_average',
+                    'overview',
+                    'first_air_date',
+                    'genres',
+                ]);
+        });
     }
 }
